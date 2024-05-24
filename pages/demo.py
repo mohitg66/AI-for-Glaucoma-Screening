@@ -5,7 +5,6 @@ import pandas as pd
 import numpy as np
 import cv2
 import matplotlib.pyplot as plt
-TF_ENABLE_ONEDNN_OPTS = 0
 
 def crop_rgb(img_path):
     img = plt.imread(img_path)
