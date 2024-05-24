@@ -1,1 +1,4 @@
 # AI-for-Glaucoma-Screening
+This repo contains a machine learning model for the early detection of glaucoma from color fundus photographs (CFPs), aiming to mitigate one of the leading causes of irreversible blindness worldwide.
+
+The model is based on a convolutional neural network (CNN) that classifies CFPs as either glaucomatous or non-glaucomatous. The model was trained on a dataset of around 1 lakh CFPs, achieving an AUC of 92.4% on the test set. The model can be used to screen for glaucoma in a cost-effective and non-invasive manner, potentially improving access to early diagnosis and treatment for this sight-threatening condition.
