@@ -13,7 +13,7 @@ st.markdown("""
 - Early diagnosis is crucial to prevent progression.          
 
 **Imaging Techniques**:
-- Color fundus photographs (CFPs) and optical coherence tomography (OCT) are used for detection of Glaucoma.
+- Color Fundus Photographs (CFPs) and Optical Coherence Tomography (OCT) are used for detection of Glaucoma.
 
 **AI-based Screening**:
 - Promising results in AI-based screening.
@@ -23,8 +23,9 @@ st.markdown("""
 st.write("""
 ## Developing a Robust Glaucoma Detection Model
 #### Dataset
-- **Size**: Over 101,000 annotated CFPs.
+- **Size**: Over 101,000 annotated Color Fundus Photographs (CFPs).
 - **Labels**: "Referable Glaucoma" (RG) and "No Referable Glaucoma" (NRG).
+- **Dataset Link**: https://zenodo.org/records/10035093
 """)
 
 # create a dataframe for dataset chart
@@ -57,6 +58,7 @@ st.image("images/image2.png", caption='After Preprocessing')
 st.write("""
 #### Class Imbalance
 - Applied oversampling on the minority class and undersampling on the majority class.
+- Didn't use Data Augmentation to focus on the central areas using Cropping.
 """)
 
 df_imbalance = pd.DataFrame({
@@ -75,16 +77,18 @@ chart = alt.Chart(df_imbalance).mark_bar().encode(
 st.altair_chart(chart)
 
 st.write("""
-#### Model Architectures
-- Custom CNN architectures.
-- Integration of pre-trained models like VGG16.
+#### Model Architecture
+- Convolutional Neural Network (CNN) with Custom Dense Layers.
+- Transfer learning using VGG16 for feature extraction.
+- Dropout layers for regularization.
+- Binary cross-entropy loss function and Adam optimizer.
 """)
 
 data_model = {
-    "Layer": [
-        "input layer (120,200)", "vgg16", "flatten", 
-        "dense (128)", "dropout (0.1)", "dense (128)", 
-        "dropout (0.1)", "dense (1)"
+    "Layers": [
+        "Input Layer (120,200)", "VGG16", "Flatten", 
+        "Dense (128)", "Dropout (0.1)", "Dense (128)", 
+        "Dropout (0.1)", "Dense (1)"
     ]
 }
 
@@ -96,9 +100,11 @@ df_model_horizontal = df_model.T
 st.write('')
 st.table(df_model_horizontal)
 
+# AUC - 92.4%
+# image roc_curve
 st.write("""
 #### Evaluation Metrics
-- **Primary metric**: Area Under the Curve (AUC).
+- Used AUC as the primary evaluation metric as it is robust to Class Imbalance.
+- Achieved AUC of **92.4%** on the validation set.
 """)
-
-# st.image('https://miro.medium.com/max/1400/0*zq9eSl7Sbt5Y7CzP.jpg', caption='Convolutional Neural Network Architecture')
+st.image("images/roc_curve.png", caption='ROC Curve')
